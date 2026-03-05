@@ -18,14 +18,6 @@ atividade_1/
 ├── analise_basica.ipynb             # análise completa (15 seções)
 ├── streamlit_app.py                 # dashboard interativo
 │
-├── alpha/                           # módulo com lógica testável + testes
-│   ├── analytics.py                 # funções puras extraídas do dashboard
-│   ├── streamlit_app.py             # cópia do dashboard (usa analytics.py)
-│   ├── pytest.ini
-│   └── tests/
-│       ├── conftest.py              # fixtures compartilhadas
-│       └── test_analytics.py        # 61 testes unitários
-│
 └── requirements.txt
 ```
 
@@ -78,13 +70,6 @@ Abrir `analise_basica.ipynb` no Jupyter. Requer o arquivo limpo gerado no passo 
 jupyter notebook analise_basica.ipynb
 ```
 
-### 4. Testes
-
-```bash
-cd alpha
-pytest
-```
-
 ---
 
 ## Principais achados
@@ -135,30 +120,6 @@ A mediana de fit cultural é **~42/100**, com a maioria dos funcionários nas fa
 
 ---
 
-## Módulo `alpha/` — lógica testável
-
-`analytics.py` expõe as funções de negócio como funções puras, independentes do Streamlit:
-
-```python
-from analytics import (
-    detectar_cols_perf,       # identifica colunas de performance
-    ordenar_cols_perf,        # ordena cronologicamente
-    classificar_9box,         # classifica funcionário na Matriz 9-Box
-    classificar_trajetoria,   # Crescente / Estável / Decrescente
-    calcular_trajetorias,     # aplica a toda a base
-    calcular_r_potencial_perf,        # correlação Potencial × Performance
-    correlacoes_assessments_perf,     # correlação de cada assessment
-    validar_workbook,         # valida abas e colunas do Excel de entrada
-)
-```
-
-```bash
-cd alpha && pytest -v
-# 61 passed in 0.85s
-```
-
----
-
 ## Dependências principais
 
 | Pacote | Uso |
@@ -169,4 +130,3 @@ cd alpha && pytest -v
 | `matplotlib` / `seaborn` | gráficos estáticos no notebook |
 | `scikit-learn` | K-Means, regressão múltipla, StandardScaler |
 | `openpyxl` | leitura/escrita de Excel |
-| `pytest` | testes unitários |
